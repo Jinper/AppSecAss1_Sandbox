@@ -1,3 +1,5 @@
+
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,6 +8,10 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/*
+* Author: Jin Pan
+* Assigment1: Truing Compelte Sandbox
+**/
 
 public class Sandbox {
 
@@ -14,11 +20,12 @@ public class Sandbox {
 	ArrayList<String> varList = new ArrayList(50);
 	ArrayList<Integer> numList = new ArrayList(50);
 	
-	
-	public Sandbox(String filePath){
+	//constructor
+	//the para must be the filepath of your file which is like D:/java/xxx.txt
+	public Sandbox(String filePath){                                 
 		try {
 			 File file = new File(filePath); 
-			 if (file.isFile() && file.exists()) {  
+			 if (file.isFile() && file.exists()) {                  
 				 InputStreamReader read = new InputStreamReader(new FileInputStream(file));   
 			     BufferedReader bufferedReader = new BufferedReader(read);   
 			     
@@ -40,6 +47,7 @@ public class Sandbox {
 		
 	}
 	
+	// processor is the method to do the compiling work
 	public void processor(){
 		int count = lineList.size();
 		
@@ -48,6 +56,8 @@ public class Sandbox {
 			String[] element = line.split(" ");
 			int space = element.length;
 			
+			// use the number of space to judge the command's format
+			//3 space means the format is like "SET N 10"
 			if(space==3){
 				String cmd = element[0];
 				String var = element[1];
@@ -58,6 +68,7 @@ public class Sandbox {
 				}		
 			}
 			
+			//5pace means the format is like "SET F3 ADD F1 F2"
 			if(space==5){
 				int finalVar = 0;
 				String cmd = element[0];
@@ -68,6 +79,9 @@ public class Sandbox {
 				
 				if (op.equals("ADD")){
 					finalVar = add(val1,val2);
+				}
+				if (op.equals("SUB")){
+					finalVar = sub(val1,val2);
 				}
 				if (op.equals("MUL")){
 					finalVar = mul(val1,val2);
@@ -82,6 +96,7 @@ public class Sandbox {
 		}
 	}
 	
+	//setVar do the work to store the values and print them
 	public void setVar(String s, int i){
 		varList.add(s);
 		numList.add(i);
@@ -116,6 +131,7 @@ public class Sandbox {
 		return finalVar;
 	}
 	
+	// main()
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		System.out.println("Welcome to Jin's Sandbox");
